@@ -10,7 +10,8 @@
     <SfButton CssClass="e-inherit" IconCss="e-icons e-notes" Content="Notes"
               OnClick="@(() => NavigateToPage("/notes"))" />
     <AppBarSpacer></AppBarSpacer>
-        <SfButton CssClass="e-inherit" IconCss="e-icons e-plus" Content="New Contact" />
+        <SfButton CssClass="e-inherit" IconCss="e-icons e-plus"
+              Content="New Contact" OnClick="@(() => NavigateToPage("/contacts/new"))" />
 </SfAppBar>
 
 @code {
