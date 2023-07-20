@@ -1,0 +1,69 @@
+﻿@page "/contacts"
+@inject NavigationManager NavigationManager
+
+<h3>Contacts</h3>
+
+
+<SfGrid DataSource="GridData" AllowFiltering = "true" Toolbar="@(new List<string>() { "Search" })"> 
+    <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.CheckBox"></GridFilterSettings>
+    <GridColumns>
+        <GridColumn Width="60">
+            <Template>
+                @{
+                    var contact = context as Contact;
+                    <SfButton CssClass="e-inherit" IconCss="e-icons e-edit" 
+                    OnClick="@(() => EditContact(contact!.Id))"></SfButton>
+                }
+            </Template>
+        </GridColumn>
+            <GridColumn Field="FirstName" HeaderText="First Name"></GridColumn>
+            <GridColumn Field="LastName" HeaderText="Last Name"></GridColumn>
+            <GridColumn Field="NickName" HeaderText="Nick Name"></GridColumn>
+            <GridColumn Field="Place" HeaderText="Place"></GridColumn>
+            <GridColumn Field="DateOfBirth" HeaderText="Date Of Birth" Format="yyyy-MM-dd"></GridColumn>
+
+    </GridColumns>
+</SfGrid>
+
+@code {
+    public List<Contact> GridData { get; set; } = new List<Contact>
+    {
+        new Contact
+        {
+            Id = 1,
+            FirstName = "Peter",
+            LastName = "Parker",
+            NickName = "Spider-Man",
+            Place = "New York City",
+            DateOfBirth = new DateTime(2001, 8, 1),
+            DateCreated = DateTime.Now
+        },
+
+        new Contact
+        {
+            Id = 2,
+            FirstName = "Tony",
+            LastName = "Stark",
+            NickName = "Iron Man",
+            Place = "Malibu",
+            DateOfBirth = new DateTime(1970, 5, 29),
+            DateCreated = DateTime.Now
+        },
+
+        new Contact
+        {
+            Id = 3,
+            FirstName = "Bruce",
+            LastName = "Wayne",
+            NickName = "Batman",
+            Place = "Gotham City",
+            DateOfBirth = new DateTime(1915, 4, 7),
+            DateCreated = DateTime.Now
+        }
+    };
+
+    void EditContact(int id)
+    {
+        NavigationManager.NavigateTo($"contacts/edit/{id}");
+    }
+}
