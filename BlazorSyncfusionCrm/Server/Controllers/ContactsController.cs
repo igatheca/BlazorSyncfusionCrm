@@ -65,7 +65,24 @@ namespace BlazorSyncfusionCrm.Server.Controllers
 
             await _context.SaveChangesAsync();
 
-            return BadRequest(contact);
+            return Ok(contact);
+        }
+
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult<List<Contact>>>DeleteContact(int id)
+        {
+            var dbContact = await _context.Contacts.FindAsync(id);
+            if (dbContact is null)
+            {
+                return NotFound("Contact not found.");
+            }
+
+            dbContact.IsDeleted = true;
+            dbContact.DateDeleted = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
+            return await GetAllContacts();
         }
     }
 }
